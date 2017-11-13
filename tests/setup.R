@@ -8,7 +8,7 @@ enade_cat <-
 	get_catalog( "enade" ,
 		output_dir = file.path( getwd() ) )
 
-record_categories <- ceiling( seq( nrow( enade_cat ) ) / ceiling( nrow( enade_cat ) / 3 ) )
+record_categories <- ceiling( seq( nrow( enade_cat ) ) / ceiling( nrow( enade_cat ) / 5 ) )
 
 enade_cat <- unique( rbind( enade_cat[ record_categories == this_sample_break , ] , enade_cat[ enade_cat$year == 2015 , ] ) )
 
