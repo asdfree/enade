@@ -3,6 +3,7 @@ if ( .Platform$OS.type == 'windows' ) memory.limit( 256000 )
 library(lodown)
 lodown( "enade" , output_dir = file.path( getwd() ) )
 this_sample_break <- Sys.getenv( "this_sample_break" )
+enade_cat <- get_catalog( "enade" , enade_cat )
 record_categories <- ceiling( seq( nrow( enade_cat ) ) / ceiling( nrow( enade_cat ) / 2 ) )
 enade_cat <- enade_cat[ record_categories == this_sample_break , ]
 lodown( "enade" , enade_cat )
