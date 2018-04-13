@@ -4,7 +4,7 @@ Title: enade
 Version: 0.1.0
 Author: Anthony Joseph Damico
 Maintainer: Anthony Joseph Damico <ajdamico@gmail.com>
-Description: A continuous integration package, tested on ajdamico/asdfree commit 92048e537fe8c95c8940fa0b6efcb3b7732a565c ajdamico/lodown commit dec49e7888b9a6a7a30b4fe9a480294bd3843d9c
+Description: A continuous integration package, tested on ajdamico/asdfree commit e58e045d88dcc90aa59855b72b443e9cf0f6f89f ajdamico/lodown commit dec49e7888b9a6a7a30b4fe9a480294bd3843d9c
 License: GPL-3
 Imports: archive, lodown, dplyr
 Encoding: UTF-8
