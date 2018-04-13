@@ -8,8 +8,8 @@ enade_cat <- get_catalog( "enade" , output_dir = file.path( getwd() ) )
 record_categories <- ceiling( seq( nrow( enade_cat ) ) / ceiling( nrow( enade_cat ) / 2 ) )
 enade_cat <- enade_cat[ record_categories == this_sample_break , ]
 enade_cat <- lodown( "enade" , enade_cat )
-if( any( enade_cat$year == 2015 ) ){
-enade_df <- readRDS( file.path( getwd() , "2015 main.rds" ) )
+if( any( enade_cat$year == 2016 ) ){
+enade_df <- readRDS( file.path( getwd() , "2016 main.rds" ) )
 
 enade_df <- 
 	transform( 
