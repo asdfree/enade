@@ -11,9 +11,6 @@ this_url <-	"https://download.inep.gov.br/microdados/microdados_enade_2021.zip"
 GET( this_url , write_disk( tf ) )
 
 archive_extract( tf , dir = tempdir() )
-# enade_fn <- file.path( path.expand( "~" ) , "ENADE" , "this_file.rds" )
-# saveRDS( enade_df , file = enade_fn , compress = FALSE )
-# enade_df <- readRDS( enade_fn )
 
 read_enade_archive <-
 	function( this_regular_expression , this_directory ){
@@ -51,6 +48,9 @@ enade_df <- merge( arq3_df , arq1_df )
 
 stopifnot( nrow( enade_df ) == nrow( arq3_df ) )
 
+# enade_fn <- file.path( path.expand( "~" ) , "ENADE" , "this_file.rds" )
+# saveRDS( enade_df , file = enade_fn , compress = FALSE )
+# enade_df <- readRDS( enade_fn )
 enade_df <- 
 	transform( 
 		enade_df , 
