@@ -6,6 +6,6 @@ Author: Anthony Joseph Damico
 Maintainer: Anthony Joseph Damico <ajdamico@gmail.com>
 Description: A continuous integration dummy package
 License: GPL-3
-Imports: httr, dplyr
+Imports: httr, archive, dplyr
 Encoding: UTF-8
 LazyData: true
