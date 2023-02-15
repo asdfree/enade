@@ -38,11 +38,11 @@ read_enade_archive <-
 		this_df
 	}
 
-arq1_df <- read_enade_archive( 'arq1\.txt$' , tempdir() )
+arq1_df <- read_enade_archive( 'arq1\\.txt$' , tempdir() )
 
-arq1_df <- unique( arq1_df[ c( 'co_curso' , 'co_uf_curso' ) ] )
+arq1_df <- unique( arq1_df[ c( 'co_curso' , 'co_uf_curso' , 'co_categad' , 'co_grupo' ) ] )
 
-arq3_df <- read_enade_archive( 'arq3\.txt$' , tempdir() )
+arq3_df <- read_enade_archive( 'arq3\\.txt$' , tempdir() )
 
 enade_df <- merge( arq3_df , arq1_df )
 
@@ -55,6 +55,14 @@ enade_df <-
 		# qual foi o tempo gasto por voce para concluir a prova?
 		less_than_two_hours = as.numeric( co_rs_i9 %in% c( 'A' , 'B' ) ) ,
 		
+		administrative_category =
+			factor(
+				co_categad ,
+				levels = c( 1:5 , 7 ) ,
+				labels = c( '1. Pública Federal' , '2. Pública Estadual' , 
+				'3. Pública Municipal' , '4. Privada com fins lucrativos' , 
+				'5. Privada sem fins lucrativos' , '7. Especial' )
+			) ,
 
 		state_name = 
 			factor( 
@@ -75,26 +83,26 @@ enade_df <-
 	
 nrow( enade_df )
 
-table( enade_df[ , "tp_sexo" ] , useNA = "always" )
+table( enade_df[ , "administrative_category" ] , useNA = "always" )
 mean( enade_df[ , "nt_obj_fg" ] , na.rm = TRUE )
 
 tapply(
 	enade_df[ , "nt_obj_fg" ] ,
-	enade_df[ , "tp_sexo" ] ,
+	enade_df[ , "administrative_category" ] ,
 	mean ,
 	na.rm = TRUE 
 )
 prop.table( table( enade_df[ , "state_name" ] ) )
 
 prop.table(
-	table( enade_df[ , c( "state_name" , "tp_sexo" ) ] ) ,
+	table( enade_df[ , c( "state_name" , "administrative_category" ) ] ) ,
 	margin = 2
 )
 sum( enade_df[ , "nt_obj_fg" ] , na.rm = TRUE )
 
 tapply(
 	enade_df[ , "nt_obj_fg" ] ,
-	enade_df[ , "tp_sexo" ] ,
+	enade_df[ , "administrative_category" ] ,
 	sum ,
 	na.rm = TRUE 
 )
@@ -102,18 +110,18 @@ quantile( enade_df[ , "nt_obj_fg" ] , 0.5 , na.rm = TRUE )
 
 tapply(
 	enade_df[ , "nt_obj_fg" ] ,
-	enade_df[ , "tp_sexo" ] ,
+	enade_df[ , "administrative_category" ] ,
 	quantile ,
 	0.5 ,
 	na.rm = TRUE 
 )
-sub_enade_df <- subset( enade_df , qp_i1 %in% c( "A" , "B" ) )
+sub_enade_df <- subset( enade_df , co_rs_i1 %in% c( "A" , "B" ) )
 mean( sub_enade_df[ , "nt_obj_fg" ] , na.rm = TRUE )
 var( enade_df[ , "nt_obj_fg" ] , na.rm = TRUE )
 
 tapply(
 	enade_df[ , "nt_obj_fg" ] ,
-	enade_df[ , "tp_sexo" ] ,
+	enade_df[ , "administrative_category" ] ,
 	var ,
 	na.rm = TRUE 
 )
@@ -134,7 +142,14 @@ enade_tbl %>%
 	summarize( mean = mean( nt_obj_fg , na.rm = TRUE ) )
 
 enade_tbl %>%
-	group_by( tp_sexo ) %>%
+	group_by( administrative_category ) %>%
 	summarize( mean = mean( nt_obj_fg , na.rm = TRUE ) )
-```
-```{r eval = FALSE , results = "hide" }
+
+it_students <- subset( enade_df , co_grupo %in% 6409 )
+
+results <- sapply( it_students[ c( 'nt_fg' , 'nt_ce' , 'nt_ger' ) ] , mean , na.rm = TRUE )
+
+stopifnot( round( results[ 'nt_fg' ] , 1 ) == 30.4 )
+stopifnot( round( results[ 'nt_ce' ] , 1 ) == 38.2 )
+stopifnot( round( results[ 'nt_ger' ] , 1 ) == 36.3 )
+
