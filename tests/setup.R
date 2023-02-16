@@ -1,6 +1,6 @@
-#
-#
-#
+# undergraduates
+# sit for standardized testing
+# exit interview
 library(httr)
 library(archive)
 
