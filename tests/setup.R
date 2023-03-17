@@ -139,6 +139,15 @@ glm_result <-
 	)
 
 summary( glm_result )
+
+it_students <- subset( enade_df , co_grupo %in% 6409 )
+
+results <- sapply( it_students[ c( 'nt_fg' , 'nt_ce' , 'nt_ger' ) ] , mean , na.rm = TRUE )
+
+stopifnot( round( results[ 'nt_fg' ] , 1 ) == 30.4 )
+stopifnot( round( results[ 'nt_ce' ] , 1 ) == 38.2 )
+stopifnot( round( results[ 'nt_ger' ] , 1 ) == 36.3 )
+
 library(dplyr)
 enade_tbl <- as_tibble( enade_df )
 enade_tbl %>%
@@ -167,12 +176,3 @@ dbGetQuery(
 	GROUP BY
 		administrative_category'
 )
-
-it_students <- subset( enade_df , co_grupo %in% 6409 )
-
-results <- sapply( it_students[ c( 'nt_fg' , 'nt_ce' , 'nt_ger' ) ] , mean , na.rm = TRUE )
-
-stopifnot( round( results[ 'nt_fg' ] , 1 ) == 30.4 )
-stopifnot( round( results[ 'nt_ce' ] , 1 ) == 38.2 )
-stopifnot( round( results[ 'nt_ger' ] , 1 ) == 36.3 )
-
