@@ -147,6 +147,11 @@ enade_tbl %>%
 enade_tbl %>%
 	group_by( administrative_category ) %>%
 	summarize( mean = mean( nt_obj_fg , na.rm = TRUE ) )
+library(data.table)
+enade_dt <- data.table( enade_df )
+enade_dt[ , mean( nt_obj_fg , na.rm = TRUE ) ]
+
+enade_dt[ , mean( nt_obj_fg , na.rm = TRUE ) , by = administrative_category ]
 
 it_students <- subset( enade_df , co_grupo %in% 6409 )
 
